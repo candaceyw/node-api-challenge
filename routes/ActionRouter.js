@@ -24,7 +24,6 @@ router.get('/:id', async (req, res, next) => {
 		next(error);
 	}
 });
-
 //working
 
 //POST - adds new actions
@@ -39,16 +38,6 @@ router.post('/:id', async (req, res, next) => {
 		res.status(500).json({ message: 'Could not add action' });
 	}
 });
-// router.post('/:id', async (req, res, next) => {
-// 	// const newAction = { ...req.body, project_id: req.params.id };
-// 	try {
-// 		const data = await actions.insert(req.body, req.params.id);
-// 		res.status(201).json(data);
-// 	} catch (error) {
-// 		next(error);
-// 		res.status(500).json({ message: 'Could not add action' });
-// 	}
-// });
 //working
 
 // PUT  use insert to update/change actions
