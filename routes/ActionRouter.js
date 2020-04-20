@@ -15,22 +15,40 @@ router.get('/', async (req, res, next) => {
 //working
 
 //Action by project Id
-router.get('/:id', validateActionId, (req, res, next) => {
-	res.status(200).json(req.actions);
+router.get('/:id', async (req, res, next) => {
+	const id = req.params.id;
+	try {
+		const data = await actions.get(id);
+		res.status(200).json(data);
+	} catch (error) {
+		next(error);
+	}
 });
+
 //working
 
 //POST - adds new actions
 router.post('/:id', async (req, res, next) => {
 	const newAction = { ...req.body, project_id: req.params.id };
+
 	try {
 		const data = await actions.insert(newAction);
 		res.status(201).json(data);
-	} catch {
-		next(err);
+	} catch (error) {
+		next(error);
 		res.status(500).json({ message: 'Could not add action' });
 	}
 });
+// router.post('/:id', async (req, res, next) => {
+// 	// const newAction = { ...req.body, project_id: req.params.id };
+// 	try {
+// 		const data = await actions.insert(req.body, req.params.id);
+// 		res.status(201).json(data);
+// 	} catch (error) {
+// 		next(error);
+// 		res.status(500).json({ message: 'Could not add action' });
+// 	}
+// });
 //working
 
 // PUT  use insert to update/change actions
@@ -57,7 +75,7 @@ router.delete('/:id', async (req, res, next) => {
 
 //middleware function
 function validateActionId(req, res, next) {
-	const id = req.params.id;
+	const id = req.params.actionId;
 	projects
 		.getProjectActions(id)
 		.then((response) => {

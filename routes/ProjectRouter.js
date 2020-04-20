@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const projects = require('../data/helpers/projectModel');
 
+// Create an /actions subroute
+const actionRoutes = require('./ActionRouter');
+router.use('/:id/actions', actionRoutes);
+
 // GET return all projects
 router.get('/', async (req, res, next) => {
 	try {

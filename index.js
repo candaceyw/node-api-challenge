@@ -11,6 +11,7 @@ server.use(logger);
 
 server.use('/projects', projects);
 server.use('/actions', actions);
+// server.use('/:id/actions', actions);
 
 server.get('/', (req, res) => {
 	res.status(200).json({ message: 'Success' });
